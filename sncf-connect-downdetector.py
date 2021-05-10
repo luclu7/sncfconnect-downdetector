@@ -16,11 +16,11 @@ driver = webdriver.Firefox(options=options)
 
 driver.get("https://moncompte.sncf.com/prehome")
 content = driver.find_element_by_css_selector(".login-account__header__title")
-if content.text == "SERVICE INDISPONIBLE":
-    print(now.isoformat()+": DOWN")
-    client.write_points(["status value=0"], database='sncf-connect', time_precision='ms', protocol='line')
-else:
+if content.text == "CONNECTEZ-VOUS":
     print(now.isoformat()+": UP")
     client.write_points(["status value=1"], database='sncf-connect', time_precision='ms', protocol='line')
+else:
+    print(now.isoformat()+": DOWN")
+    client.write_points(["status value=0"], database='sncf-connect', time_precision='ms', protocol='line')
 
 driver.close()
